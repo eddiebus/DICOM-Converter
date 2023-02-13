@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
         for i in range(openFile.shape[1]):
             dataSlice = fileData[:, i, :]
-            filepath = os.path.join(subpath, "export_{0}.png".format(i));
+            filepath = os.path.join(subpath, "{0}.png".format(i));
             print_status(filepath,i,openFile.shape[1])
             export_slice_image(filepath, dataSlice)
 
