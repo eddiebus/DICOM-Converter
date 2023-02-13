@@ -1,14 +1,9 @@
 import os
+
+#Modules - Please check they are installed
 import numpy
-# None Default Modules, Check they are installed before running
 import nibabel
 import imageio
-
-
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 def clear_console():
     lambda: os.system('clr')
@@ -29,14 +24,17 @@ def get_files_of_type(file_path, extension_name):
     return return_list
 
 def export_slice_image(filepath, slice):
+    # Increase brightness and scale colour values from 0 - 1 to 0 - 255
     for x in range(len(slice)):
         for y in range(len(slice[x])):
             slice[x, y] = slice[x, y] * 255 * 2
             pass
+
+    # Convert slice to 8bit integer before exporting
     converted_slice = slice.astype(numpy.uint8)
+    #Export image
     imageio.imwrite(filepath, converted_slice)
     return
-
 
 def print_status(file_name,slice_number,totalSliceCount):
     statement = """
@@ -51,9 +49,14 @@ def print_status(file_name,slice_number,totalSliceCount):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    # Current path of script
     absolute_path = os.path.dirname(__file__)
+    # Export folder path
     exportDirPath = os.path.join(absolute_path, "ImageExport")
+    # Create export folder if it does not exist
     create_directory(exportDirPath)
+
+    # Get files of type and export them in seperate folders.
     for file in get_files_of_type(absolute_path, ".gz"):
         subpath = os.path.join(exportDirPath, file[0])
         create_directory(
