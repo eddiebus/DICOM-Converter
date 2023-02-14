@@ -27,13 +27,13 @@ def export_slice_image(filepath, slice):
     # Increase brightness and scale colour values from 0 - 1 to 0 - 255
     for x in range(len(slice)):
         for y in range(len(slice[x])):
-            slice[x, y] = slice[x, y] * 255 * 2
+            slice[x, y] = slice[x, y] * 255
             pass
 
     # Convert slice to 8bit integer before exporting
     converted_slice = slice.astype(numpy.uint8)
     #Export image
-    imageio.imwrite(filepath, converted_slice)
+    imageio.imwrite(filepath, slice)
     return
 
 def print_status(file_name,slice_number,totalSliceCount):
